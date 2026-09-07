@@ -146,6 +146,28 @@ For a public always-on URL: **Render** (blueprint `render.yaml`) or **Railway**
 - `docs/DEPLOYMENT.md` — deploy options: Docker one-command, Render/Railway PaaS, VPS; env vars, verification, backups.
 - `docs/LAUNCH.md` — go-to-market plan, onboarding, trust & safety, roadmap.
 
+## 🔁 CI/CD and web deployment
+
+The private source repository is available at [github.com/dxt-stack/ojax](https://github.com/dxt-stack/ojax).
+Every pull request and push to `main` runs dependency auditing, TypeScript checks, the server test suite,
+the production client/server build, and a Docker image build. When the repository secret
+`RENDER_DEPLOY_HOOK_URL` is configured, a successful push to `main` also triggers the Render deployment.
+
+To create the hosted web app from the committed deployment blueprint, use the
+[Deploy to Render button](https://render.com/deploy?repo=https://github.com/dxt-stack/ojax), then set the
+generated service's `PUBLIC_BASE_URL` to its final public URL. The app exposes `/healthz` for deployment
+health checks and serves the React web experience and API from the same origin.
+
+### Enable automatic deployment
+
+1. Create the service from the Render blueprint link above.
+2. In Render, create a deploy hook for the `ojax` web service.
+3. Add that URL to the private GitHub repository as the Actions secret `RENDER_DEPLOY_HOOK_URL`.
+4. Future green pushes to `main` will trigger deployment automatically.
+
+The deploy hook is intentionally optional: CI remains fully functional without production credentials,
+which keeps pull requests safe and makes local development independent of a hosting provider.
+
 ## 🧾 Notes
 
 - Money is transported as **kobo** integers (₦1 = 100 kobo) to avoid float errors.
