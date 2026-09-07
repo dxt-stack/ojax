@@ -26,9 +26,10 @@ WORKDIR /app
 COPY --from=deps /app/server/node_modules ./server/node_modules
 COPY --from=deps /app/client/node_modules ./client/node_modules
 COPY server/package.json ./server/
+COPY server/package-lock.json ./server/
 COPY server/tsconfig.json ./server/
 COPY server/src ./server/src
-RUN cd server && npm run build
+RUN cd server && npm ci --include=dev --no-audit --no-fund && npm run build
 # context excludes client/node_modules via .dockerignore; npm ci'd ones above survive
 COPY client ./client
 RUN cd client && npm run build
