@@ -15,8 +15,8 @@ FROM node:20-bookworm-slim AS deps
 WORKDIR /app
 COPY server/package.json server/package-lock.json ./server/
 COPY client/package.json client/package-lock.json ./client/
-RUN cd server && npm ci --omit=dev --no-audit --no-fund && \
-    cd client && npm ci --no-audit --no-fund
+RUN cd /app/server && npm ci --omit=dev --no-audit --no-fund && \
+    cd /app/client && npm ci --no-audit --no-fund
 
 # ---------------------------------------------------------------------------
 # build — server tsc + client vite

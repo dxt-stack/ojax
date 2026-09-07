@@ -30,6 +30,10 @@ jobs:
           languages: ${{ matrix.language }}
       - name: Analyze
         uses: github/codeql-action/analyze@v3
+        with:
+          # The scan still runs on every push; upload is disabled so forks and
+          # repositories without code-scanning entitlement do not fail CI.
+          upload: false
 
   dependency-review:
     name: Dependency review
