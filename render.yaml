@@ -30,6 +30,8 @@ services:
       # (it feeds links in emails/notifications only).
       - key: PUBLIC_BASE_URL
         value: https://ojax.onrender.com
+      - key: CLIENT_ORIGIN
+        value: https://ojax.onrender.com
       - key: UPLOAD_ROOT
         value: /data/uploads
     disk:
