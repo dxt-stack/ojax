@@ -20,6 +20,6 @@
     "typecheck": "npm --prefix server run typecheck && npm --prefix client run typecheck"
   },
   "devDependencies": {
-    "concurrently": "^8.2.2"
+    "concurrently": "^10.0.5"
   }
 }
