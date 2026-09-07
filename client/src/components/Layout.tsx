@@ -125,10 +125,10 @@ export default function Layout() {
       <div className="topbar">
         <div className="container">
           <div className="marquee">
-            <span>🏆 Nigeria's #1 student marketplace</span>
-            <span>✅ Trade safely inside your campus</span>
-            <span>🚚 Nationwide delivery available</span>
-            <span>📅 Discover campus events</span>
+            <span> Nigeria's #1 student marketplace</span>
+            <span> Trade safely inside your campus</span>
+            <span> Nationwide delivery available</span>
+            <span> Discover campus events</span>
           </div>
           <div className="right">
             <Link to="/events">Campus events</Link>
@@ -197,7 +197,7 @@ export default function Layout() {
                 OjaX is the trusted marketplace &amp; events hub built for Nigerian university students — buy, sell and stay
                 plugged into campus life, safely.
               </p>
-              <p>📍 Lagos, Nigeria · Made by students, for students</p>
+              <p> Lagos, Nigeria · Made by students, for students</p>
             </div>
             <div>
               <h4>Shop</h4>
@@ -222,10 +222,10 @@ export default function Layout() {
             <div>
               <h4>Stay safe on OjaX</h4>
               <ul>
-                <li>🛡️ Meet in public campus spots</li>
-                <li>💬 Keep chats on OjaX</li>
-                <li>💵 No advance payments off-platform</li>
-                <li>📸 Inspect items before you pay</li>
+                <li> Meet in public campus spots</li>
+                <li> Keep chats on OjaX</li>
+                <li> No advance payments off-platform</li>
+                <li> Inspect items before you pay</li>
               </ul>
             </div>
           </div>

@@ -49,7 +49,7 @@ export default function App() {
 
         <Route path="*" element={
           <div className="empty" style={{ padding: 90 }}>
-            <div className="big">🧭</div>
+            <div className="big"></div>
             <h3>This page wandered off campus</h3>
             <p>The page you're looking for doesn't exist.</p>
             <Link to="/" className="btn btn-primary">Go home</Link>

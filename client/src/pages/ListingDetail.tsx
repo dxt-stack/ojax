@@ -63,7 +63,7 @@ export default function ListingDetail() {
     try {
       const r = await post<{ count: number }>("/api/orders/cart", { listingId: l.id, quantity: qty });
       cart.bump();
-      toast("Added to cart 🛒");
+      toast("Added to cart ");
       nav("/checkout");
     } catch (e: any) {
       toast(e.message || "Couldn't add to cart", "err");
@@ -77,7 +77,7 @@ export default function ListingDetail() {
     try {
       const d = await post<{ favorite: boolean }>(`/api/listings/${l.id}/favorite`);
       setFav(d.favorite);
-      toast(d.favorite ? "Saved ❤️" : "Removed");
+      toast(d.favorite ? "Saved " : "Removed");
     } catch { toast("Try again", "err"); }
   };
 
@@ -96,7 +96,7 @@ export default function ListingDetail() {
     setBusy(true);
     try {
       await post(`/api/listings/${l.id}/sold`);
-      toast("Marked as sold 🎉");
+      toast("Marked as sold ");
       nav("/dashboard");
     } catch (e: any) { toast(e.message, "err"); } finally { setBusy(false); }
   };
@@ -150,7 +150,7 @@ export default function ListingDetail() {
             <div style={{ display: "flex", gap: 8, flexWrap: "wrap", margin: "10px 0" }}>
               <span className="chip chip-brand">{l.conditionLabel || l.condition}</span>
               {l.negotiable && <span className="chip">Price negotiable</span>}
-              {l.shipAvailable && <span className="chip chip-green">🚚 Ships</span>}
+              {l.shipAvailable && <span className="chip chip-green"> Ships</span>}
               {l.quantity > 1 && <span className="chip">Qty {l.quantity}</span>}
               <span className="chip"><Icon name="eye" size={14} /> {l.views} views</span>
               <span className="chip">{timeAgo(l.createdAt)}</span>
@@ -159,14 +159,14 @@ export default function ListingDetail() {
             <h3 style={{ fontSize: 16, marginBottom: 8 }}>Description</h3>
             <div style={{ whiteSpace: "pre-wrap", color: "var(--ink-2)", fontSize: 14.5, lineHeight: 1.65 }}>{l.description || "No description provided."}</div>
             {l.meetupNotes && (
-              <div className="ok-box" style={{ marginTop: 14 }}>📌 <b>Meetup note:</b> {l.meetupNotes}</div>
+              <div className="ok-box" style={{ marginTop: 14 }}> <b>Meetup note:</b> {l.meetupNotes}</div>
             )}
           </div>
         </div>
 
         <div className="buybox">
           {sold ? (
-            <><div style={{ fontSize: 18, fontWeight: 800 }}>Sold 🎉</div>
+            <><div style={{ fontSize: 18, fontWeight: 800 }}>Sold </div>
               <p style={{ color: "var(--ink-3)", fontSize: 14 }}>This item already found a new owner.</p></>
           ) : (
             <>
@@ -180,7 +180,7 @@ export default function ListingDetail() {
               {l.negotiable && <span style={{ fontSize: 12.5, color: "var(--green)", fontWeight: 700 }}>Negotiable — chat the seller</span>}
 
               <div className="meta-line">
-                <span className="chip chip-green">✓ Seller verified student</span>
+                <span className="chip chip-green"> Seller verified student</span>
                 {l.shipAvailable && <span className="shiptag"><Icon name="truck" size={14} /> Delivery available</span>}
               </div>
 
@@ -224,7 +224,7 @@ export default function ListingDetail() {
           <Link to={sellerLink} style={{ display: "flex", gap: 11, alignItems: "center" }}>
             <Avatar name={l.seller?.fullName || "?"} url={l.seller?.avatarUrl} size={46} />
             <div style={{ flex: 1, minWidth: 0 }}>
-              <div style={{ fontWeight: 800 }}>{l.seller?.fullName} {l.seller?.verified && <span title="Verified student" style={{ color: "var(--green)" }}>✓</span>}</div>
+              <div style={{ fontWeight: 800 }}>{l.seller?.fullName} {l.seller?.verified && <span title="Verified student" style={{ color: "var(--green)" }}></span>}</div>
               <div style={{ fontSize: 12.5, color: "var(--ink-3)", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
                 {l.seller?.universityCode || "Student"} {l.seller?.level ? `· ${l.seller.level}` : ""}
               </div>
@@ -255,7 +255,7 @@ export default function ListingDetail() {
       {modal === "chat" && (
         <div className="modal-backdrop" onClick={() => setModal(null)}>
           <div className="modal" onClick={(e) => e.stopPropagation()}>
-            <button className="close-x" onClick={() => setModal(null)}>✕</button>
+            <button className="close-x" onClick={() => setModal(null)}></button>
             <h3>Message {l.seller?.fullName?.split(" ")[0]}</h3>
             <p style={{ color: "var(--ink-3)", fontSize: 13.5 }}>About: <b>{l.title}</b></p>
             <div className="field">

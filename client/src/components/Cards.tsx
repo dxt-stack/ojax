@@ -37,7 +37,7 @@ export function ListingCard({ listing }: { listing: Listing }) {
     try {
       const d = await post<{ favorite: boolean }>(`/api/listings/${listing.id}/favorite`);
       setFav(d.favorite);
-      toast(d.favorite ? "Saved to favourites ❤️" : "Removed from favourites");
+      toast(d.favorite ? "Saved to favourites " : "Removed from favourites");
     } catch {
       toast("Couldn't update favourite", "err");
     }
@@ -111,7 +111,7 @@ export function EventCard({ event, onToggle }: { event: EventItem; onToggle: (e:
             disabled={isPast}
             onClick={() => onToggle(event)}
           >
-            {isPast ? "Ended" : event.myRsvp ? "Going ✓" : event.priceKobo > 0 ? `RSVP · ${naira(event.priceKobo)}` : "RSVP free"}
+            {isPast ? "Ended" : event.myRsvp ? "Going " : event.priceKobo > 0 ? `RSVP · ${naira(event.priceKobo)}` : "RSVP free"}
           </button>
         </div>
       </div>

@@ -62,7 +62,7 @@ export default function Login() {
   return (
     <div className="auth-wrap">
       <div className="auth-card">
-        <h1>Welcome back 👋</h1>
+        <h1>Welcome back </h1>
         <div className="sub">Sign in to shop, sell and join campus events.</div>
         {err && <ErrBox>{err}</ErrBox>}
         <form onSubmit={submit}>
@@ -131,15 +131,15 @@ export function Register() {
   return (
     <div className="auth-wrap">
       <div className="auth-card wide">
-        <h1>Join OjaX 🎓</h1>
+        <h1>Join OjaX </h1>
         <div className="sub">Free for students &amp; student organisations.</div>
         {err && <ErrBox>{err}</ErrBox>}
         <div className="role-toggle">
           <button type="button" className={!form.isOrg ? "active" : ""} onClick={() => set("isOrg", false)}>
-            🎒 Student <span className="cap">buy &amp; sell on campus</span>
+             Student <span className="cap">buy &amp; sell on campus</span>
           </button>
           <button type="button" className={form.isOrg ? "active" : ""} onClick={() => set("isOrg", true)}>
-            🏛️ Organisation <span className="cap">post events &amp; earn</span>
+             Organisation <span className="cap">post events &amp; earn</span>
           </button>
         </div>
         <form onSubmit={submit}>
@@ -222,7 +222,7 @@ export function ForgotPassword() {
         <h1>Reset password</h1>
         <div className="sub">Enter your email and we'll send a reset link (demo: check server logs).</div>
         {done ? (
-          <div className="ok-box">✅ If an account exists for <b>{email}</b>, a reset token is on its way (demo: visible in the server console).</div>
+          <div className="ok-box"> If an account exists for <b>{email}</b>, a reset token is on its way (demo: visible in the server console).</div>
         ) : (
           <>
             {err && <ErrBox>{err}</ErrBox>}
@@ -264,7 +264,7 @@ export function ResetPassword() {
       <div className="auth-card">
         <h1>Set a new password</h1>
         {done ? (
-          <div className="ok-box">✅ Password updated! <Link to="/login" style={{ fontWeight: 800 }}>Sign in now →</Link></div>
+          <div className="ok-box"> Password updated! <Link to="/login" style={{ fontWeight: 800 }}>Sign in now →</Link></div>
         ) : (
           <>
             {err && <ErrBox>{err}</ErrBox>}

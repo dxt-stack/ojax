@@ -40,7 +40,7 @@ export default function Events() {
         toast("RSVP cancelled");
       } else {
         await post(`/api/events/${ev.id}/rsvp`);
-        toast("You're going! 🎉");
+        toast("You're going! ");
       }
       refresh();
     } catch (e: any) { toast(e.message || "Try again", "err"); }
@@ -50,7 +50,7 @@ export default function Events() {
     <div className="container">
       <div className="breadcrumb"><span>Home</span> <Icon name="arrowR" size={13} /> <b>Campus events</b></div>
       <div className="sec-head">
-        <h1 style={{ fontSize: 24 }}>📅 Campus events</h1>
+        <h1 style={{ fontSize: 24 }}> Campus events</h1>
         {user?.isOrg && <Link to="/dashboard?tab=events" className="btn btn-primary btn-sm">+ Post an event</Link>}
       </div>
       <div className="filter-bar">
@@ -95,7 +95,7 @@ export function EventDetail() {
     setBusy(true);
     try {
       if (ev?.myRsvp) { await del(`/api/events/${id}/rsvp`); toast("RSVP cancelled"); }
-      else { await post(`/api/events/${id}/rsvp`); toast("You're going! 🎉"); }
+      else { await post(`/api/events/${id}/rsvp`); toast("You're going! "); }
       loadEv();
     } catch (e: any) { toast(e.message, "err"); } finally { setBusy(false); }
   };
@@ -117,7 +117,7 @@ export function EventDetail() {
           <div style={{ display: "flex", gap: 9, flexWrap: "wrap", marginBottom: 10 }}>
             <span className="chip chip-brand">{CAT_LABEL[ev.category] || ev.category}</span>
             {ev.priceKobo > 0 ? <span className="chip chip-amber">Ticket: {naira(ev.priceKobo)}</span> : <span className="chip chip-green">Free entry</span>}
-            {ev.isOnline && <span className="chip chip-blue">💻 Online</span>}
+            {ev.isOnline && <span className="chip chip-blue"> Online</span>}
           </div>
           <h1 style={{ fontSize: 26 }}>{ev.title}</h1>
           <div style={{ display: "flex", gap: 8, alignItems: "center", margin: "10px 0 4px", fontWeight: 700 }}>
@@ -143,7 +143,7 @@ export function EventDetail() {
         </div>
         {!cancelled && (
           <button className={`btn btn-lg ${ev.myRsvp ? "btn-outline" : "btn-primary"}`} onClick={rsvp} disabled={busy || isPast}>
-            {isPast ? "Event ended" : busy ? "…" : ev.myRsvp ? "Going ✓ — tap to cancel" : ev.priceKobo > 0 ? `Get ticket · ${naira(ev.priceKobo)}` : "RSVP — I'm going"}
+            {isPast ? "Event ended" : busy ? "…" : ev.myRsvp ? "Going  — tap to cancel" : ev.priceKobo > 0 ? `Get ticket · ${naira(ev.priceKobo)}` : "RSVP — I'm going"}
           </button>
         )}
       </div>

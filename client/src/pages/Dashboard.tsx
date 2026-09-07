@@ -94,7 +94,7 @@ function OverviewTab({ user, setTab }: { user: User; setTab: (t: string) => void
   const s = stats || { activeListings: 0, soldItems: 0, favorites: 0, unreadMessages: 0, cartItems: 0, salesCount: 0, salesRevenueKobo: 0 };
   return (
     <div>
-      <h1 style={{ fontSize: 22, marginBottom: 14 }}>Welcome back{user.fullName.split(" ")[0] ? `, ${user.fullName.split(" ")[0]}` : ""} 👋</h1>
+      <h1 style={{ fontSize: 22, marginBottom: 14 }}>Welcome back{user.fullName.split(" ")[0] ? `, ${user.fullName.split(" ")[0]}` : ""} </h1>
       {user.isOrg ? (
         <div className="promo-band" style={{ marginTop: 0 }}>
           <div><h3>Post your next campus event</h3><p>Reach thousands of students — it takes 2 minutes.</p></div>
@@ -183,11 +183,11 @@ function ListingsTab() {
                 </div>
               </div>
               <div style={{ display: "flex", gap: 6, flexWrap: "wrap", justifyContent: "flex-end" }}>
-                {l.status === "active" && <button className="btn btn-success btn-sm" onClick={() => act(() => post(`/api/listings/${l.id}/sold`), "Marked as sold 🎉")}>Sold ✓</button>}
+                {l.status === "active" && <button className="btn btn-success btn-sm" onClick={() => act(() => post(`/api/listings/${l.id}/sold`), "Marked as sold ")}>Sold </button>}
                 {l.status === "paused" && <button className="btn btn-outline btn-sm" onClick={() => act(() => post(`/api/listings/${l.id}/activate`), "Republished")}>Activate</button>}
                 {l.status === "active" && <button className="btn btn-outline btn-sm" onClick={() => act(() => post(`/api/listings/${l.id}/pause`), "Paused")}>Pause</button>}
                 <button className="btn btn-outline btn-sm" onClick={() => nav(`/sell/${l.id}/edit`)}><Icon name="edit" size={14} /> Edit</button>
-                <button className="btn btn-danger btn-sm" onClick={() => { if (confirm("Delete this listing permanently?")) act(() => del(`/api/listings/${l.id}`), "Deleted"); }}>✕</button>
+                <button className="btn btn-danger btn-sm" onClick={() => { if (confirm("Delete this listing permanently?")) act(() => del(`/api/listings/${l.id}`), "Deleted"); }}></button>
               </div>
             </div>
           ))}
@@ -215,7 +215,7 @@ function OrdersTab({ scope }: { scope: "buyer" | "seller" }) {
 
   const confirmDelivery = async (o: Order) => {
     if (!confirm(`Confirm you received everything in order ${o.orderNo}?`)) return;
-    try { await post(`/api/orders/${o.id}/confirm-delivery`); toast("Order completed 🎉"); setLoad(true);
+    try { await post(`/api/orders/${o.id}/confirm-delivery`); toast("Order completed "); setLoad(true);
       get<{ orders: Order[] }>(`/api/orders?scope=${scope}`).then((d) => setOrders(d.orders)).finally(() => setLoad(false));
     } catch (e: any) { toast(e.message, "err"); }
   };
@@ -249,7 +249,7 @@ function OrdersTab({ scope }: { scope: "buyer" | "seller" }) {
   if (load) return <PageLoader />;
   return (
     <div>
-      <div className="sec-head"><h2>{scope === "seller" ? "Sales & payouts 💰" : "Orders I've placed"}</h2></div>
+      <div className="sec-head"><h2>{scope === "seller" ? "Sales & payouts " : "Orders I've placed"}</h2></div>
       {scope === "seller" && (
         <div className="card" style={{ marginBottom: 14 }}>
           <div style={{ padding: "12px 16px", display: "flex", gap: 10, alignItems: "center", fontSize: 13, color: "var(--ink-2)" }}>
@@ -269,7 +269,7 @@ function OrdersTab({ scope }: { scope: "buyer" | "seller" }) {
                 <div style={{ display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: 8, marginBottom: 10 }}>
                   <div>
                     <b>{o.orderNo}</b> <span className={`chip ${statCls}`}>{o.status.replace("_", " ")}</span>
-                    <div style={{ fontSize: 12.5, color: "var(--ink-3)" }}>{fmtDateTime(o.createdAt)} · {o.fulfilment === "pickup" ? "🤝 Campus pickup" : "🚚 Delivery"}{o.buyerName ? ` · Buyer: ${o.buyerName}` : ""}</div>
+                    <div style={{ fontSize: 12.5, color: "var(--ink-3)" }}>{fmtDateTime(o.createdAt)} · {o.fulfilment === "pickup" ? " Campus pickup" : " Delivery"}{o.buyerName ? ` · Buyer: ${o.buyerName}` : ""}</div>
                   </div>
                   <b style={{ fontSize: 18 }}>{naira(o.totals.totalKobo)}</b>
                 </div>
@@ -313,7 +313,7 @@ function OrdersTab({ scope }: { scope: "buyer" | "seller" }) {
       {reviewTarget && (
         <div className="modal-backdrop" onClick={() => setReviewTarget(null)}>
           <div className="modal" onClick={(e) => e.stopPropagation()}>
-            <button className="close-x" onClick={() => setReviewTarget(null)}>✕</button>
+            <button className="close-x" onClick={() => setReviewTarget(null)}></button>
             <h3>Rate this seller ⭐</h3>
             <p style={{ color: "var(--ink-3)", fontSize: 13.5, margin: "2px 0 14px" }}>
               About your purchase: <b>{reviewTarget.item.title}</b> — order {reviewTarget.order.orderNo}
@@ -326,7 +326,7 @@ function OrdersTab({ scope }: { scope: "buyer" | "seller" }) {
               <textarea className="textarea" rows={3} value={reviewComment} onChange={(e) => setReviewComment(e.target.value)} placeholder="How was the item, communication and meetup? Real reviews build the campus community." maxLength={1000} />
             </div>
             <p style={{ fontSize: 12, color: "var(--ink-3)", marginTop: 0 }}>
-              🛡️ Reviews appear on the seller's public profile and can't be edited — they're tied to verified, delivered purchases.
+               Reviews appear on the seller's public profile and can't be edited — they're tied to verified, delivered purchases.
             </p>
             <div style={{ display: "flex", gap: 10, justifyContent: "flex-end" }}>
               <button className="btn btn-outline" onClick={() => setReviewTarget(null)}>Cancel</button>
@@ -352,9 +352,9 @@ function FavList() {
   if (load) return <PageLoader />;
   return (
     <div>
-      <div className="sec-head"><h2>Saved items ❤️ ({items.length})</h2></div>
+      <div className="sec-head"><h2>Saved items  ({items.length})</h2></div>
       {items.length === 0 ? (
-        <Empty icon="heart" title="Nothing saved yet" text="Tap the ♥ on any item to save it here.">
+        <Empty icon="heart" title="Nothing saved yet" text="Tap the  on any item to save it here.">
           <Link to="/browse" className="btn btn-primary">Browse the market</Link>
         </Empty>
       ) : (
@@ -407,7 +407,7 @@ function OrgEvents({ setTab }: { setTab: (t: string) => void }) {
         priceKobo: f.price ? Math.round(Number(f.price) * 100) : 0,
         posterUrl: f.posterUrl || null,
       });
-      toast("Event published 🎉");
+      toast("Event published ");
       setShowForm(false);
       const d = await get<{ items: EventItem[] }>("/api/events?mine=1");
       setEvents(d.items);
@@ -457,7 +457,7 @@ function OrgEvents({ setTab }: { setTab: (t: string) => void }) {
           <div style={{ display: "flex", gap: 10, justifyContent: "flex-end" }}>
             <button className="btn btn-outline" onClick={() => setShowForm(false)}>Cancel</button>
             <button className="btn btn-primary" disabled={busy || !f.title || !f.venue || !f.startsAt} onClick={publish}>
-              {busy ? "Publishing…" : "Publish event 🚀"}
+              {busy ? "Publishing…" : "Publish event "}
             </button>
           </div>
         </div>
@@ -505,7 +505,7 @@ function SettingsTab({ user, updateUser }: { user: User; updateUser: (p: Partial
     try {
       const d = await patch<{ user: User }>("/api/users/me", f);
       updateUser(d.user);
-      toast("Profile updated ✨");
+      toast("Profile updated ");
     } catch (e: any) { toast(e.message, "err"); } finally { setSaving(false); }
   };
 
@@ -522,7 +522,7 @@ function SettingsTab({ user, updateUser }: { user: User; updateUser: (p: Partial
   const changePw = async () => {
     try {
       await post("/api/auth/change-password", pw);
-      toast("Password changed 🔒");
+      toast("Password changed ");
       setPw({ current: "", next: "" });
     } catch (e: any) { toast(e.message, "err"); }
   };

@@ -19,7 +19,7 @@ const COPY: Record<string, { title: string; body: ReactNode }> = {
         <h3 style={{ margin: "18px 0 8px" }}>Our vision</h3>
         <p>To become the leading campus marketplace across Nigeria — making it effortless for students to trade goods and
           stay connected with campus life.</p>
-        <p className="chip chip-brand" style={{ marginTop: 8 }}>🇳🇬 Proudly made in Lagos, Nigeria</p>
+        <p className="chip chip-brand" style={{ marginTop: 8 }}> Proudly made in Lagos, Nigeria</p>
       </>
     ),
   },
@@ -28,18 +28,18 @@ const COPY: Record<string, { title: string; body: ReactNode }> = {
     body: (
       <>
         <p>OjaX works because trades stay safe. Follow these golden rules:</p>
-        <h3 style={{ margin: "14px 0 6px" }}>🛡️ Meet in public</h3>
+        <h3 style={{ margin: "14px 0 6px" }}> Meet in public</h3>
         <p>Arrange meetups in busy, public campus spots — the library entrance, the faculty building, a staffed gate.
           Bring a friend if you can.</p>
-        <h3 style={{ margin: "14px 0 6px" }}>💬 Keep the chat on OjaX</h3>
+        <h3 style={{ margin: "14px 0 6px" }}> Keep the chat on OjaX</h3>
         <p>If someone pushes you to WhatsApp or Telegram immediately, that's a warning sign. On-OjaX chats leave a record
           that keeps both of you honest.</p>
-        <h3 style={{ margin: "14px 0 6px" }}>📸 Inspect before you pay</h3>
+        <h3 style={{ margin: "14px 0 6px" }}> Inspect before you pay</h3>
         <p>Test the phone, open the laptop, flip through the textbook. If it's not what was listed, walk away — no hard feelings.</p>
-        <h3 style={{ margin: "14px 0 6px" }}>💵 Never pay in advance off-platform</h3>
+        <h3 style={{ margin: "14px 0 6px" }}> Never pay in advance off-platform</h3>
         <p>No deposits "to hold the item". No "transport fee" via transfer to a random account. Scammers live on urgency —
           slow down and use the in-app payment flow when you buy with delivery.</p>
-        <h3 style={{ margin: "14px 0 6px" }}>🚨 Report bad behaviour</h3>
+        <h3 style={{ margin: "14px 0 6px" }}> Report bad behaviour</h3>
         <p>Harassment, spam or suspected fraud? Report the conversation and we'll review it. Verified students who misbehave
           lose their access.</p>
         <div className="chip chip-green">Every user shows their university — that's our trust layer.</div>
@@ -75,9 +75,9 @@ const COPY: Record<string, { title: string; body: ReactNode }> = {
       <>
         <p>We'd love to hear from you — feedback, school partnerships, or bug reports.</p>
         <div style={{ display: "grid", gap: 8, marginTop: 12 }}>
-          <span className="chip" style={{ justifyContent: "flex-start", padding: "10px 14px" }}>📧 hello@ojax.app (demo)</span>
-          <span className="chip" style={{ justifyContent: "flex-start", padding: "10px 14px" }}>📱 @ojaxmarket on Instagram, TikTok & X</span>
-          <span className="chip" style={{ justifyContent: "flex-start", padding: "10px 14px" }}>📍 Lagos, Nigeria</span>
+          <span className="chip" style={{ justifyContent: "flex-start", padding: "10px 14px" }}> hello@ojax.app (demo)</span>
+          <span className="chip" style={{ justifyContent: "flex-start", padding: "10px 14px" }}> @ojaxmarket on Instagram, TikTok & X</span>
+          <span className="chip" style={{ justifyContent: "flex-start", padding: "10px 14px" }}> Lagos, Nigeria</span>
         </div>
         <p style={{ marginTop: 16 }}>Want OjaX at your university? <Link to="/contact"><b>Partner with us</b></Link> — we're rolling out
           campus by campus.</p>

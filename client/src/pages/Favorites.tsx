@@ -20,7 +20,7 @@ export default function Favorites() {
   if (load) return <PageLoader />;
   return (
     <div className="container" style={{ maxWidth: 1080 }}>
-      <div className="sec-head"><h1 style={{ fontSize: 24 }}>Saved items ❤️</h1></div>
+      <div className="sec-head"><h1 style={{ fontSize: 24 }}>Saved items </h1></div>
       {items.length === 0 ? (
         <Empty icon="heart" title="Nothing saved yet" text="Tap the heart on any item in the market to keep it here.">
           <Link to="/browse" className="btn btn-primary">Browse the market</Link>

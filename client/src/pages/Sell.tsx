@@ -119,11 +119,11 @@ export default function Sell() {
     try {
       if (mode === "edit" && id) {
         const d = await api<{ listing: Listing }>(`/api/listings/${id}`, { method: "PATCH", body });
-        toast("Listing updated ✨");
+        toast("Listing updated ");
         nav(`/item/${d.listing.id}`);
       } else {
         const d = await api<{ listing: Listing }>("/api/listings", { method: "POST", body });
-        toast("Your item is live! 🎉");
+        toast("Your item is live! ");
         nav(`/item/${d.listing.id}`);
       }
     } catch (er: any) {
@@ -141,7 +141,7 @@ export default function Sell() {
         <span>Home</span> <Icon name="arrowR" size={13} /> <b>{mode === "edit" ? "Edit item" : "Sell an item"}</b>
       </div>
       <div className="card" style={{ padding: "26px 24px" }}>
-        <h1 style={{ fontSize: 23 }}>{mode === "edit" ? "Edit your item ✏️" : "List an item for sale 🛍️"}</h1>
+        <h1 style={{ fontSize: 23 }}>{mode === "edit" ? "Edit your item " : "List an item for sale "}</h1>
         <p style={{ color: "var(--ink-3)", marginTop: 4 }}>Photos are key — sellers with clear photos sell 4× faster. Free to list.</p>
         {err && <ErrBox>{err}</ErrBox>}
 
@@ -161,7 +161,7 @@ export default function Sell() {
                 <div className="photo-cell" key={img.id}>
                   <img src={img.thumbUrl || img.fullUrl} alt={`Photo ${i + 1}`} />
                   {i === 0 && <span className="cover-tag">COVER</span>}
-                  <button type="button" className="rm" onClick={() => removeImg(img)} aria-label="Remove photo">✕</button>
+                  <button type="button" className="rm" onClick={() => removeImg(img)} aria-label="Remove photo"></button>
                 </div>
               ))}
               {images.length < 8 && (
@@ -240,7 +240,7 @@ export default function Sell() {
           <div style={{ display: "flex", gap: 10, justifyContent: "flex-end" }}>
             <button type="button" className="btn btn-outline" onClick={() => nav(-1)}>Cancel</button>
             <button type="submit" className="btn btn-primary btn-lg" disabled={busy || uploading}>
-              {busy ? "Saving…" : mode === "edit" ? "Save changes" : "Publish item 🚀"}
+              {busy ? "Saving…" : mode === "edit" ? "Save changes" : "Publish item "}
             </button>
           </div>
         </form>

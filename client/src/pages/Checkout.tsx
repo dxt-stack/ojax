@@ -125,7 +125,7 @@ export default function Checkout() {
 
       {paidOrder && (
         <div className="card" style={{ padding: 34, textAlign: "center", marginTop: 10 }}>
-          <div style={{ fontSize: 60 }}>🎉</div>
+          <div style={{ fontSize: 60 }}></div>
           <h1 style={{ fontSize: 26, margin: "8px 0 4px" }}>Payment successful!</h1>
           <p style={{ color: "var(--ink-3)" }}>Order <b>{paidOrder.orderNo}</b> is confirmed. Sellers have been notified to arrange {paidOrder.fulfilment === "pickup" ? "pickup" : "delivery"}.</p>
           <div style={{ display: "flex", gap: 10, justifyContent: "center", flexWrap: "wrap", marginTop: 14 }}>
@@ -145,7 +145,7 @@ export default function Checkout() {
           </div>
           {empty ? (
             <div className="empty" style={{ padding: "44px 16px" }}>
-              <div className="big">🛒</div>
+              <div className="big"></div>
               <h3>Your cart is empty</h3>
               <p>Items you add from the market will show up here.</p>
               <Link to="/browse" className="btn btn-primary">Start shopping</Link>
@@ -161,7 +161,7 @@ export default function Checkout() {
                     <Link to={`/item/${line.listingId}`} style={{ fontWeight: 700, display: "block", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{line.title}</Link>
                     <div style={{ fontSize: 12.5, color: "var(--ink-3)" }}>Sold by {line.sellerName}</div>
                     {line.unavailable && <span className="chip chip-red" style={{ marginTop: 4 }}>No longer available — remove</span>}
-                    {line.shipAvailable && <span style={{ fontSize: 11.5, color: "var(--green)", fontWeight: 700 }}>🚚 delivery available</span>}
+                    {line.shipAvailable && <span style={{ fontSize: 11.5, color: "var(--green)", fontWeight: 700 }}> delivery available</span>}
                     <div style={{ display: "flex", gap: 10, alignItems: "center", marginTop: 6 }}>
                       {!line.unavailable && (
                         <div className="qty">
@@ -182,7 +182,7 @@ export default function Checkout() {
               <div className="summary-card" style={{ padding: "16px 16px 18px", position: "static" }}>
                 <div className="lines">
                   <div className="li-row"><span>Subtotal ({data!.items.length} item{data!.items.length > 1 ? "s" : ""})</span><b>{naira(data!.totals.subtotalKobo)}</b></div>
-                  <div className="li-row"><span>Delivery estimate</span><b>{data!.totals.shippingKobo === 0 && data!.items.some((i) => i.shipAvailable) ? "FREE 🎉" : naira(data!.totals.shippingKobo)}</b></div>
+                  <div className="li-row"><span>Delivery estimate</span><b>{data!.totals.shippingKobo === 0 && data!.items.some((i) => i.shipAvailable) ? "FREE " : naira(data!.totals.shippingKobo)}</b></div>
                   {data!.items.some((i) => i.shipAvailable) && data!.totals.subtotalKobo < data!.rules.freeAboveKobo && (
                     <div style={{ fontSize: 12.5, background: "var(--brand-soft)", borderRadius: 10, padding: "7px 11px", color: "var(--brand-strong)" }}>
                       Add {naira(data!.rules.freeAboveKobo - data!.totals.subtotalKobo)} more for free delivery
@@ -203,7 +203,7 @@ export default function Checkout() {
         <div className="checkout-grid">
           <div className="card" style={{ padding: 24 }}>
             <div className="steps">
-              <span className="step on">1 · Cart ✓</span>
+              <span className="step on">1 · Cart </span>
               <span className="step on">2 · Details</span>
               <span className="step">3 · Pay</span>
             </div>
@@ -211,10 +211,10 @@ export default function Checkout() {
             <h2 style={{ fontSize: 20, marginBottom: 16 }}>Delivery &amp; contact</h2>
             <div className="role-toggle" style={{ gridTemplateColumns: "1fr 1fr" }}>
               <button type="button" className={form.fulfilment === "pickup" ? "active" : ""} onClick={() => setForm({ ...form, fulfilment: "pickup" })}>
-                🤝 Campus pickup <span className="cap">meet the seller on campus</span>
+                 Campus pickup <span className="cap">meet the seller on campus</span>
               </button>
               <button type="button" className={form.fulfilment === "shipping" ? "active" : ""} onClick={() => setForm({ ...form, fulfilment: "shipping" })}>
-                🚚 Delivery <span className="cap">{nairaCompact(data!.rules.shippingKobo)} nationwide · free ≥ ₦20k</span>
+                 Delivery <span className="cap">{nairaCompact(data!.rules.shippingKobo)} nationwide · free ≥ ₦20k</span>
               </button>
             </div>
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
@@ -255,8 +255,8 @@ export default function Checkout() {
         <div className="checkout-grid">
           <div className="card" style={{ padding: 26 }}>
             <div className="steps">
-              <span className="step on">1 · Cart ✓</span>
-              <span className="step on">2 · Details ✓</span>
+              <span className="step on">1 · Cart </span>
+              <span className="step on">2 · Details </span>
               <span className="step on">3 · Pay</span>
             </div>
             <h2 style={{ fontSize: 20 }}>Pay {naira(order.totals.totalKobo)}</h2>
@@ -265,7 +265,7 @@ export default function Checkout() {
 
             <div className="card" style={{ border: "2px solid var(--brand)", background: "var(--brand-soft)", padding: 16, margin: "16px 0" }}>
               <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-                <span style={{ width: 46, height: 46, borderRadius: 13, background: "#fff", display: "grid", placeItems: "center", fontSize: 22 }}>🟠</span>
+                <span style={{ width: 46, height: 46, borderRadius: 13, background: "#fff", display: "grid", placeItems: "center", fontSize: 22 }}></span>
                 <div style={{ flex: 1 }}>
                   <b>OjaPay — demo gateway</b>
                   <div style={{ fontSize: 12.5, color: "var(--ink-2)" }}>Sandbox mode: no real money moves. Tap to simulate a successful payment.</div>

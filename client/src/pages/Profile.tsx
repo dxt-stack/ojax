@@ -46,11 +46,11 @@ export default function Profile() {
           <Avatar name={profile.fullName} url={profile.avatarUrl} size={88} />
           <div style={{ flex: 1, minWidth: 220 }}>
             <h1 style={{ fontSize: 24 }}>{profile.fullName}
-              {profile.verified && <span title="Verified student" style={{ color: "var(--green)", marginLeft: 6 }}>✓</span>}
+              {profile.verified && <span title="Verified student" style={{ color: "var(--green)", marginLeft: 6 }}></span>}
             </h1>
             <div style={{ color: "var(--ink-2)", fontSize: 14 }}>
               {profile.isOrg && profile.orgName ? <><b>{profile.orgName}</b><br /></> : null}
-              {profile.universityCode && <>🎓 {profile.universityCode}{profile.department ? ` · ${profile.department}` : ""}{profile.level ? ` · ${profile.level}` : ""}<br /></>}
+              {profile.universityCode && <> {profile.universityCode}{profile.department ? ` · ${profile.department}` : ""}{profile.level ? ` · ${profile.level}` : ""}<br /></>}
               Joined {timeAgo(profile.joinedAt)} · {stats?.soldItems ?? 0} sold
             </div>
             <div style={{ marginTop: 6 }}>
@@ -89,7 +89,7 @@ export default function Profile() {
           </div>
           {reviews.length === 0 ? (
             <p style={{ color: "var(--ink-3)", fontSize: 13.5, margin: 0 }}>
-              No reviews yet — every review here comes from a real confirmed delivery, so the first few take time. That's by design. 🛡️
+              No reviews yet — every review here comes from a real confirmed delivery, so the first few take time. That's by design.
             </p>
           ) : (
             <div style={{ display: "grid", gap: 14 }}>

@@ -21,7 +21,7 @@ export function Stars({ value, onChange, size = 17 }: { value: number; onChange?
   );
 }
 
-/** One-line rating display: ★ 4.8 (12) */
+/** One-line rating display:  4.8 (12) */
 export function RatingLine({ avg, count }: { avg: number | null; count: number }) {
   if (!count || avg === null) return <span style={{ fontSize: 12.5, color: "var(--ink-3)" }}>No ratings yet</span>;
   return (

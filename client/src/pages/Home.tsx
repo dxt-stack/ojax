@@ -64,7 +64,7 @@ export default function Home() {
         toast("RSVP cancelled");
       } else {
         await post(`/api/events/${ev.id}/rsvp`);
-        toast("You're going! 🎉");
+        toast("You're going! ");
       }
       setEvents((arr) => arr.map((x) => (x.id === ev.id ? { ...x, myRsvp: !x.myRsvp, rsvpCount: x.rsvpCount + (x.myRsvp ? -1 : 1) } : x)));
     } catch {
@@ -105,7 +105,7 @@ export default function Home() {
       <div className="container">
         <section className="sec">
           <div className="sec-head">
-            <h2>🔥 Fresh on the market</h2>
+            <h2> Fresh on the market</h2>
             <Link to="/browse">See all →</Link>
           </div>
           {fresh.length ? (
@@ -121,7 +121,7 @@ export default function Home() {
 
         <section className="sec">
           <div className="sec-head">
-            <h2>⚡ Trending in your campus market</h2>
+            <h2> Trending in your campus market</h2>
             <Link to="/browse?sort=popular">More →</Link>
           </div>
           <div className="grid-products">
@@ -142,7 +142,7 @@ export default function Home() {
 
         <section className="sec">
           <div className="sec-head">
-            <h2>📅 Happening on campus</h2>
+            <h2> Happening on campus</h2>
             <Link to="/events">All events →</Link>
           </div>
           <div className="events-grid">

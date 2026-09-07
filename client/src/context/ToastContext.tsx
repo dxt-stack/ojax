@@ -22,7 +22,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
       <div className="toasts" role="status" aria-live="polite">
         {toasts.map((t) => (
           <div key={t.id} className={`toast ${t.kind}`}>
-            <span className="tick">{t.kind === "ok" ? "✓" : t.kind === "err" ? "!" : "ℹ"}</span>
+            <span className="tick">{t.kind === "ok" ? "" : t.kind === "err" ? "!" : "ℹ"}</span>
             <span style={{ flex: 1 }}>{t.text}</span>
           </div>
         ))}
@@ -55,7 +55,7 @@ export function PageLoader() {
 export function Empty({ icon, title, text, children }: { icon?: string; title: string; text?: string; children?: ReactNode }) {
   return (
     <div className="empty">
-      <div className="big">{icon ? <Icon name={icon} size={56} color="#d0d5dd" /> : "🛍️"}</div>
+      <div className="big">{icon ? <Icon name={icon} size={56} color="#d0d5dd" /> : ""}</div>
       <h3>{title}</h3>
       {text && <p>{text}</p>}
       {children}

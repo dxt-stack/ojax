@@ -79,7 +79,7 @@ export default function Messages() {
 
   return (
     <div className="container" style={{ maxWidth: 1080 }}>
-      <div className="sec-head"><h2>Messages 💬</h2></div>
+      <div className="sec-head"><h2>Messages </h2></div>
       <div className="chat-shell">
         <div className="conv-list">
           {convs.length === 0 ? (
@@ -98,8 +98,8 @@ export default function Messages() {
                     {c.lastMessage && <span style={{ fontWeight: 400, fontSize: 11, color: "var(--ink-3)" }}>{timeAgo(c.lastMessage.createdAt)}</span>}
                   </div>
                   <div className="tt" style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
-                    {c.listingTitle ? <>📦 {c.listingTitle} — </> : null}
-                    {c.lastMessage ? (c.lastMessage.senderId === user?.id ? `You: ${c.lastMessage.body}` : c.lastMessage.body) : "Say hi 👋"}
+                    {c.listingTitle ? <> {c.listingTitle} — </> : null}
+                    {c.lastMessage ? (c.lastMessage.senderId === user?.id ? `You: ${c.lastMessage.body}` : c.lastMessage.body) : "Say hi "}
                   </div>
                 </div>
                 {c.unread > 0 && <span className="dot" style={{ background: "var(--brand)" }} title={`${c.unread} unread`} />}
@@ -124,7 +124,7 @@ export default function Messages() {
               <div className="chat-msgs">
                 {detail.messages.length === 0 && (
                   <div style={{ textAlign: "center", color: "var(--ink-3)", fontSize: 13.5, padding: 30 }}>
-                    Say hi 👋 — start the conversation
+                    Say hi  — start the conversation
                   </div>
                 )}
                 {detail.messages.map((m) => {
@@ -134,7 +134,7 @@ export default function Messages() {
                       {m.body}
                       <div style={{ fontSize: 10, opacity: 0.65, marginTop: 3 }}>
                         {new Date(m.created_at || m.createdAt || "").toLocaleTimeString("en-NG", { hour: "2-digit", minute: "2-digit" })}
-                        {mine && m.read_at ? " · ✓✓ read" : ""}
+                        {mine && m.read_at ? " ·  read" : ""}
                       </div>
                     </div>
                   );
