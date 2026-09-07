@@ -1,0 +1,55 @@
+# OjaX — one-command local deployment:  docker compose up --build
+# URL: http://localhost:4000   (API + web app served together)
+#
+# Before first run:
+#   export JWT_SECRET="$(openssl rand -hex 32)"
+# Everything else (Postgres, migrations, uploads volume) is handled for you.
+# A brand-new database starts EMPTY (no demo data, no fake anything).
+
+name: ojax
+
+services:
+  db:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_USER: ojax
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-ojax_dev_pass}
+      POSTGRES_DB: ojax
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ojax -d ojax"]
+      interval: 5s
+      timeout: 3s
+      retries: 15
+    restart: unless-stopped
+
+  web:
+    build: .
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      NODE_ENV: production
+      PORT: 4000
+      DATABASE_URL: postgres://ojax:${POSTGRES_PASSWORD:-ojax_dev_pass}@db:5432/ojax
+      JWT_SECRET: ${JWT_SECRET:?Set JWT_SECRET before starting the web service}
+      DEMO_SEED: "false"          # never seed the showroom in production
+      PUBLIC_BASE_URL: ${PUBLIC_BASE_URL:-http://localhost:4000}
+      UPLOAD_ROOT: /data/uploads  # keep in sync with the uploads volume
+      TRUST_PROXY: "true"
+    ports:
+      - "4000:4000"
+    volumes:
+      - uploads:/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:4000/healthz').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 30s
+      timeout: 5s
+      start_period: 20s
+      retries: 3
+
+volumes:
+  db-data:
+  uploads:          # user-uploaded product photos & avatars survive restarts

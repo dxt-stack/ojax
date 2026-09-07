@@ -1,0 +1,38 @@
+# Render Blueprint — one-click deploy from your GitHub repo:
+#   https://render.com/deploy?repo=<YOUR_GITHUB_REPO_URL>
+# Docs: docs/DEPLOYMENT.md   (costs: web ~$7/mo + Postgres — free tiers are demo-only)
+databases:
+  - name: ojax-db
+    plan: basic-256mb
+    databaseName: ojax
+    user: ojax
+
+services:
+  - type: web
+    name: ojax
+    runtime: docker
+    plan: starter
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /healthz
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DEMO_SEED
+        value: "false"
+      - key: DATABASE_URL
+        fromDatabase:
+          name: ojax-db
+          property: connectionString
+      - key: JWT_SECRET
+        generateValue: true
+      # Change this to https://<your-app>.onrender.com after first deploy
+      # (it feeds links in emails/notifications only).
+      - key: PUBLIC_BASE_URL
+        value: https://ojax.onrender.com
+      - key: UPLOAD_ROOT
+        value: /data/uploads
+    disk:
+      name: ojax-uploads
+      mountPath: /data
+      sizeGB: 1
