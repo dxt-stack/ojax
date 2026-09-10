@@ -15,6 +15,7 @@ import Events, { EventDetail } from "./pages/Events";
 import Favorites from "./pages/Favorites";
 import Profile from "./pages/Profile";
 import StaticPage from "./pages/Static";
+import DesignSystem from "./pages/DesignSystem";
 
 export default function App() {
   return (
@@ -33,6 +34,7 @@ export default function App() {
         <Route path="/safety" element={<StaticPage page="safety" />} />
         <Route path="/help" element={<StaticPage page="help" />} />
         <Route path="/contact" element={<StaticPage page="contact" />} />
+        <Route path="/design-system" element={<DesignSystem />} />
         <Route path="/profile/:id?" element={<Profile />} />
 
         <Route element={<AuthOutlet />}>
