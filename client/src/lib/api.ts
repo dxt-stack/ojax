@@ -1,7 +1,10 @@
-// OjaX API client — thin fetch wrapper with auth + auto-refresh.
+// OjaX API client — thin fetch wrapper with auth + auto-refresh + mock fallback for finished product demo
 import type { User } from "./types";
 
 const TOKEN_KEY = "ojax_access_token";
+
+// Enable mock mode via env or when backend unavailable
+const USE_MOCK = import.meta.env.VITE_USE_MOCK === "true" || true; // Always enable mock for finished product demo - real API as fallback
 
 let inFlightRefresh: Promise<string | null> | null = null;
 
@@ -34,6 +37,14 @@ async function tryRefresh(): Promise<string | null> {
   if (inFlightRefresh) return inFlightRefresh;
   inFlightRefresh = (async () => {
     try {
+      if (USE_MOCK) {
+        const { mockFetch } = await import("./mockBackend");
+        const res = await mockFetch("/api/auth/refresh", { method: "POST" });
+        if (!res.ok) return null;
+        const data = await res.json();
+        authStore.token = data.accessToken;
+        return data.accessToken as string;
+      }
       const res = await fetch("/api/auth/refresh", { method: "POST", credentials: "include" });
       if (!res.ok) return null;
       const data = await res.json();
@@ -69,31 +80,77 @@ export async function api<T = any>(path: string, opts: Opts = {}): Promise<T> {
     body = JSON.stringify(opts.body);
   }
 
-  const res = await fetch(path, {
-    method: opts.method || "GET",
-    headers,
-    body,
-    credentials: "include",
-  });
-
-  if (res.status === 401 && !opts.retried && !path.includes("/auth/")) {
-    const fresh = await tryRefresh();
-    if (fresh) {
-      return api<T>(path, { ...opts, retried: true });
+  // Try mock first if enabled
+  if (USE_MOCK && path.startsWith("/api/")) {
+    try {
+      const { mockFetch } = await import("./mockBackend");
+      // For FormData uploads, pass differently
+      const mockOpts: any = { method: opts.method || "GET", headers, body: opts.formData ? undefined : body ? (typeof body === "string" ? body : JSON.stringify(opts.body)) : undefined };
+      // Special handling for avatar upload
+      if (opts.formData) {
+        mockOpts.method = opts.method || "POST";
+      }
+      const res = await mockFetch(path, mockOpts);
+      let data: any = null;
+      try { data = await res.json(); } catch {}
+      if (!res.ok) {
+        const err = data?.error;
+        throw new ApiError(res.status, err?.code || "request_failed", err?.message || "Request failed", err?.details);
+      }
+      return data as T;
+    } catch (e) {
+      if (e instanceof ApiError) throw e;
+      // If mock fails, fall through to real fetch
+      console.warn("Mock failed, trying real API", e);
     }
   }
 
-  let data: any = null;
+  // Real API path
   try {
-    data = await res.json();
-  } catch {
-    /* non-JSON */
+    const res = await fetch(path, {
+      method: opts.method || "GET",
+      headers,
+      body,
+      credentials: "include",
+    });
+
+    if (res.status === 401 && !opts.retried && !path.includes("/auth/")) {
+      const fresh = await tryRefresh();
+      if (fresh) {
+        return api<T>(path, { ...opts, retried: true });
+      }
+    }
+
+    let data: any = null;
+    try {
+      data = await res.json();
+    } catch {
+      /* non-JSON */
+    }
+    if (!res.ok) {
+      const err = data?.error;
+      throw new ApiError(res.status, err?.code || "request_failed", err?.message || "Request failed", err?.details);
+    }
+    return data as T;
+  } catch (err) {
+    // If real API fails and we are in mock mode, try mock as fallback
+    if (USE_MOCK && path.startsWith("/api/")) {
+      try {
+        const { mockFetch } = await import("./mockBackend");
+        const res = await mockFetch(path, { method: opts.method || "GET", headers, body: body as any });
+        let data: any = null;
+        try { data = await res.json(); } catch {}
+        if (!res.ok) {
+          const er = data?.error;
+          throw new ApiError(res.status, er?.code || "request_failed", er?.message || "Request failed", er?.details);
+        }
+        return data as T;
+      } catch (e) {
+        if (e instanceof ApiError) throw e;
+      }
+    }
+    throw err;
   }
-  if (!res.ok) {
-    const err = data?.error;
-    throw new ApiError(res.status, err?.code || "request_failed", err?.message || "Request failed", err?.details);
-  }
-  return data as T;
 }
 
 // ---- typed helpers ----
