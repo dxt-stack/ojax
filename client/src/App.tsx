@@ -17,10 +17,16 @@ import Profile from "./pages/Profile";
 import StaticPage from "./pages/Static";
 import DesignSystem from "./pages/DesignSystem";
 import Prototype from "./pages/Prototype";
+import Wallet from "./pages/Wallet";
+import Notifications from "./pages/Notifications";
+import Admin from "./pages/Admin";
+import Campus from "./pages/Campus";
+import Launch from "./pages/Launch";
 
 export default function App() {
   return (
     <Routes>
+      <Route path="/launch" element={<Launch />} />
       <Route element={<Layout />}>
         <Route path="/" element={<Home />} />
         <Route path="/browse" element={<Browse />} />
@@ -37,6 +43,7 @@ export default function App() {
         <Route path="/contact" element={<StaticPage page="contact" />} />
         <Route path="/design-system" element={<DesignSystem />} />
         <Route path="/prototype" element={<Prototype />} />
+        <Route path="/campus" element={<Campus />} />
         <Route path="/profile/:id?" element={<Profile />} />
 
         <Route element={<AuthOutlet />}>
@@ -49,6 +56,9 @@ export default function App() {
           <Route path="/messages" element={<Messages />} />
           <Route path="/messages/:conversationId" element={<Messages />} />
           <Route path="/org" element={<Dashboard />} />
+          <Route path="/wallet" element={<Wallet />} />
+          <Route path="/notifications" element={<Notifications />} />
+          <Route path="/admin" element={<Admin />} />
         </Route>
 
         <Route path="*" element={
@@ -57,6 +67,11 @@ export default function App() {
             <h3>This page wandered off campus</h3>
             <p>The page you're looking for doesn't exist.</p>
             <Link to="/" className="btn btn-primary">Go home</Link>
+            <div style={{ marginTop: 16, display: "flex", gap: 8, justifyContent: "center", flexWrap: "wrap" }}>
+              <Link to="/browse" className="btn btn-outline btn-sm">Browse market</Link>
+              <Link to="/events" className="btn btn-outline btn-sm">Campus events</Link>
+              <Link to="/launch" className="btn btn-outline btn-sm">Product overview</Link>
+            </div>
           </div>
         } />
       </Route>
