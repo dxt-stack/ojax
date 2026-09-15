@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import { Route, Routes } from "react-router-dom";
-import { Outlet } from "react-router-dom";
 import Layout from "./components/Layout";
 import { AuthOutlet } from "./components/Protected";
+import { Icon } from "./lib/icons";
 import Home from "./pages/Home";
 import Browse from "./pages/Browse";
 import ListingDetail from "./pages/ListingDetail";
@@ -53,7 +53,7 @@ export default function App() {
 
         <Route path="*" element={
           <div className="empty" style={{ padding: 90 }}>
-            <div className="big"></div>
+            <div className="big"><Icon name="location" size={48} color="var(--brand)" /></div>
             <h3>This page wandered off campus</h3>
             <p>The page you're looking for doesn't exist.</p>
             <Link to="/" className="btn btn-primary">Go home</Link>
